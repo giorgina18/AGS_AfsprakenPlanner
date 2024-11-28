@@ -13,6 +13,7 @@ class Database
             // Load environment variables from .env file
             $env = self::loadEnv();
 
+
             // Get database credentials from the loaded environment variables
             $host = $env['DB_HOST'];
             $db_name = $env['DB_NAME'];
