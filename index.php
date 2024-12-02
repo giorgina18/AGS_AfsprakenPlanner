@@ -21,13 +21,13 @@ if (!empty($rows)):
             foreach ($rows as $row):
                 $id = $row['id'];
                 $tijdstip = $row['tijdstip'];
-
             ?>
                 <div class="agenda__item">
                     <span><a href="agenda-item.php?id=<?= $id; ?>&day=1"><?= $tijdstip; ?></a></span>
                 </div>
             <?php endforeach; ?>
         </div>
+
         <div class="agenda__day">
             <div class="agenda__title">
                 <h3>Dinsdag</h3>
@@ -43,6 +43,7 @@ if (!empty($rows)):
                 </div>
             <?php endforeach; ?>
         </div>
+
         <div class="agenda__day">
             <div class="agenda__title">
                 <h3>Woensdag</h3>
@@ -58,6 +59,7 @@ if (!empty($rows)):
                 </div>
             <?php endforeach; ?>
         </div>
+
         <div class="agenda__day">
             <div class="agenda__title">
                 <h3>Donderdag</h3>
@@ -73,6 +75,7 @@ if (!empty($rows)):
                 </div>
             <?php endforeach; ?>
         </div>
+
         <div class="agenda__day">
             <div class="agenda__title">
                 <h3>Vrijdag</h3>
@@ -88,6 +91,7 @@ if (!empty($rows)):
                 </div>
             <?php endforeach; ?>
         </div>
+
         <div class="agenda__day">
             <div class="agenda__title">
                 <h3>Zaterdag</h3>
@@ -103,6 +107,7 @@ if (!empty($rows)):
                 </div>
             <?php endforeach; ?>
         </div>
+        
         <div class="agenda__day">
 
             <div class="agenda__title">
