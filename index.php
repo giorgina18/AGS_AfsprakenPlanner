@@ -9,121 +9,68 @@ $db->setTable('tijdstip');
 $rows = $db->fetchAllRows();
 
 if (!empty($rows)):
+
+    $weekdagen = [
+        [
+            'id' => '1',
+            'weekdag' => 'Maandag'
+        ],
+
+        [
+            'id' => '2',
+            'weekdag' => 'Dinsdag'
+        ],
+
+        [
+            'id' => '3',
+            'weekdag' => 'Woensdag'
+        ],
+
+        [
+            'id' => '4',
+            'weekdag' => 'Donderdag'
+        ],
+
+        [
+            'id' => '5',
+            'weekdag' => 'Vrijdag'
+        ],
+
+        [
+            'id' => '6',
+            'weekdag' => 'Zaterdag'
+        ],
+
+        [
+            'id' => '7',
+            'weekdag' => 'Zondag'
+        ],
+
+    ];
 ?>
 
     <!-- home page -->
     <section class="agenda">
-        <div class="agenda__day">
-            <div class="agenda__title">
-                <h3>Maandag</h3>
-            </div>
-            <?php
-            foreach ($rows as $row):
-                $id = $row['id'];
-                $tijdstip = $row['tijdstip'];
-            ?>
-                <div class="agenda__item">
-                    <span><a href="agenda-item.php?id=<?= $id; ?>&day=1"><?= $tijdstip; ?></a></span>
+        <?php
+        foreach ($weekdagen as $weekdag):
+            $weekdag_id = $weekdag['id'];
+        ?>
+            <div class="agenda__day">
+                <div class="agenda__title">
+                    <h3><?php echo $weekdag['weekdag'] ?></h3>
                 </div>
-            <?php endforeach; ?>
-        </div>
+                <?php
+                foreach ($rows as $row):
+                    $id = $row['id'];
+                    $tijdstip = $row['tijdstip'];
+                ?>
+                    <div class="agenda__item">
+                        <span><a href="agenda-item.php?id=<?= $id; ?>&day=<?php echo $weekdag_id ?>"><?= $tijdstip; ?></a></span>
+                    </div>
+                <?php endforeach; ?>
 
-        <div class="agenda__day">
-            <div class="agenda__title">
-                <h3>Dinsdag</h3>
             </div>
-            <?php
-            foreach ($rows as $row):
-                $id = $row['id'];
-                $tijdstip = $row['tijdstip'];
-
-            ?>
-                <div class="agenda__item">
-                <span><a href="agenda-item.php?id=<?= $id; ?>&day=2"><?= $tijdstip; ?></a></span>
-                </div>
-            <?php endforeach; ?>
-        </div>
-
-        <div class="agenda__day">
-            <div class="agenda__title">
-                <h3>Woensdag</h3>
-            </div>
-            <?php
-            foreach ($rows as $row):
-                $id = $row['id'];
-                $tijdstip = $row['tijdstip'];
-
-            ?>
-                <div class="agenda__item">
-                <span><a href="agenda-item.php?id=<?= $id; ?>&day=3"><?= $tijdstip; ?></a></span>
-                </div>
-            <?php endforeach; ?>
-        </div>
-
-        <div class="agenda__day">
-            <div class="agenda__title">
-                <h3>Donderdag</h3>
-            </div>
-            <?php
-            foreach ($rows as $row):
-                $id = $row['id'];
-                $tijdstip = $row['tijdstip'];
-
-            ?>
-                <div class="agenda__item">
-                <span><a href="agenda-item.php?id=<?= $id; ?>&day=4"><?= $tijdstip; ?></a></span>
-                </div>
-            <?php endforeach; ?>
-        </div>
-
-        <div class="agenda__day">
-            <div class="agenda__title">
-                <h3>Vrijdag</h3>
-            </div>
-            <?php
-            foreach ($rows as $row):
-                $id = $row['id'];
-                $tijdstip = $row['tijdstip'];
-
-            ?>
-                <div class="agenda__item">
-                <span><a href="agenda-item.php?id=<?= $id; ?>&day=5"><?= $tijdstip; ?></a></span>
-                </div>
-            <?php endforeach; ?>
-        </div>
-
-        <div class="agenda__day">
-            <div class="agenda__title">
-                <h3>Zaterdag</h3>
-            </div>
-            <?php
-            foreach ($rows as $row):
-                $id = $row['id'];
-                $tijdstip = $row['tijdstip'];
-
-            ?>
-                <div class="agenda__item">
-                <span><a href="agenda-item.php?id=<?= $id; ?>&day=6"><?= $tijdstip; ?></a></span>
-                </div>
-            <?php endforeach; ?>
-        </div>
-        
-        <div class="agenda__day">
-
-            <div class="agenda__title">
-                <h3>Zondag</h3>
-            </div>
-            <?php
-            foreach ($rows as $row):
-                $id = $row['id'];
-                $tijdstip = $row['tijdstip'];
-
-            ?>
-                <div class="agenda__item">
-                <span><a href="agenda-item.php?id=<?= $id; ?>&day=7"><?= $tijdstip; ?></a></span>
-                </div>
-            <?php endforeach; ?>
-        </div>
+        <?php endforeach; ?>
     </section>
 <?php
 endif;

@@ -76,7 +76,7 @@ class Database
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
-    
+
     // Method to fetch a single row by its ID
     public function fetchRowById($id)
     {
@@ -98,5 +98,26 @@ class Database
 
         // Fetch the row (use fetch() instead of fetchAll() since we expect a single row)
         return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+    public function insertData($table, $data)
+    {
+        if (empty($data)) {
+            throw new Exception('No data provided for insertion.');
+        }
+
+        // Generate column names and placeholders dynamically
+        $columns = '`' . implode('`, `', array_keys($data)) . '`'; // Enclose column names with backticks
+        $placeholders = ':' . implode(', :', array_keys($data));  // Prepare placeholders
+
+        $query = "INSERT INTO `$table` ($columns) VALUES ($placeholders)";
+        // Prepare the query
+        $statement = self::connection()->prepare($query);
+        // Bind the parameters
+        foreach ($data as $key => $value) {
+            $statement->bindValue(":$key", $value);
+        }
+
+        // Execute the query
+        $statement->execute();
     }
 }

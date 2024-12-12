@@ -5,17 +5,15 @@ $db = new Database();
 
 // Set the table name
 $db->setTable('tijdstip'); // Assuming your table is named 'events'
-
-// Get the event ID (in this example, we assume you already have the ID from somewhere)
-$id = $_GET['id'];  // Example of getting the ID from a query parameter (like a URL)
-
+$id = $_GET['id'];
 // Fetch the event by ID
 $event = $db->fetchRowById($id);
-$user_id = 0;
+$user_id = 1;
 ?>
-<form action="post">
-    <input type="hidden" name="day" value="<?= (isset($_GET['day'])) ? $_GET['day'] : ''; ?>">
+<form action="<?= CustomFunctions::getRootUrl(); ?>includes/handleForm.php" method="post">
     <input type="hidden" name="user-id" value="<?= (isset($user_id)) ? $user_id : ''; ?>">
+    <input type="hidden" name="day" value="<?= (isset($_GET['day'])) ? $_GET['day'] : ''; ?>">
+    <input type="hidden" name="tijdstip-id" value="<?= (isset($_GET['id'])) ? $_GET['id'] : ''; ?>">
     <select name="papiermaten">
         <option value="1">A4</option>
         <option value="2">SRA4</option>
