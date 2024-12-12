@@ -4,10 +4,9 @@ require_once 'template-parts/header.php';
 $db = new Database();
 
 // Set the table name
-$db->setTable('tijdstip'); // Assuming your table is named 'events'
 $id = $_GET['id'];
 // Fetch the event by ID
-$event = $db->fetchRowById($id);
+$event = $db->fetchRowById('tijdstip', $id);
 $user_id = 1;
 ?>
 <form action="<?= CustomFunctions::getRootUrl(); ?>includes/handleForm.php" method="post">

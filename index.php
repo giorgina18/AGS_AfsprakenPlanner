@@ -2,13 +2,10 @@
 require_once 'template-parts/header.php';
 $db = new Database();
 
-// Set the table you want to query
-$db->setTable('tijdstip');
-
 // Fetch all rows from the 'evenementen' table
-$rows = $db->fetchAllRows();
+$tijdstip_rows = $db->fetchAllRows('tijdstip');
 
-if (!empty($rows)):
+if (!empty($tijdstip_rows)):
 
     $weekdagen = [
         [
@@ -60,9 +57,9 @@ if (!empty($rows)):
                     <h3><?php echo $weekdag['weekdag'] ?></h3>
                 </div>
                 <?php
-                foreach ($rows as $row):
-                    $id = $row['id'];
-                    $tijdstip = $row['tijdstip'];
+                foreach ($tijdstip_rows as $tijdstip_row):
+                    $id = $tijdstip_row['id'];
+                    $tijdstip = $tijdstip_row['tijdstip'];
                 ?>
                     <div class="agenda__item">
                         <span><a href="agenda-item.php?id=<?= $id; ?>&day=<?php echo $weekdag_id ?>"><?= $tijdstip; ?></a></span>

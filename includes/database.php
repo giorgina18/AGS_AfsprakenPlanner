@@ -61,27 +61,22 @@ class Database
         return $env;
     }
 
-    // Method to set the table name
-    public function setTable($tableName)
-    {
-        $this->table = $tableName;
-    }
 
     // Method to fetch all rows from the set table
-    public function fetchAllRows()
+    public function fetchAllRows($table)
     {
         $connection = self::connection();  // Get the connection
-        $query = "SELECT * FROM {$this->table}";  // Use the table name dynamically
+        $query = "SELECT * FROM {$table}";  // Use the table name dynamically
         $statement = $connection->prepare($query);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // Method to fetch a single row by its ID
-    public function fetchRowById($id)
+    public function fetchRowById($table, $id)
     {
         // Ensure we have the table name set
-        if (empty($this->table)) {
+        if (empty($table)) {
             throw new Exception("Table not set. Use setTable() to set the table name.");
         }
 
@@ -89,7 +84,7 @@ class Database
         $connection = self::connection();
 
         // Prepare the query to fetch the row by ID
-        $query = "SELECT * FROM {$this->table} WHERE id = :id LIMIT 1"; // Use a prepared statement to prevent SQL injection
+        $query = "SELECT * FROM {$table} WHERE id = :id LIMIT 1"; // Use a prepared statement to prevent SQL injection
         $statement = $connection->prepare($query);
         $statement->bindParam(':id', $id, PDO::PARAM_INT);  // Bind the ID as an integer
 
