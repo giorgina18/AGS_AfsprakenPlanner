@@ -3,7 +3,6 @@
 class Database
 {
     private static $connection = null;
-    private $table;
 
     // Static method to establish and return the database connection
     public static function connection()
@@ -11,7 +10,7 @@ class Database
         // Check if the connection is already established
         if (self::$connection === null) {
             // Load environment variables from .env file
-            $env = self::loadEnv();
+            $env = CustomFunctions::loadEnv();
 
 
             // Get database credentials from the loaded environment variables
@@ -29,36 +28,6 @@ class Database
             }
         }
         return self::$connection;
-    }
-
-    // Load .env file from the parent folder and return associative array of environment variables
-    private static function loadEnv()
-    {
-        // Change this to the correct path to the .env file (in the parent directory)
-        $envFile = __DIR__ . '/../.env';  // Accessing .env in the parent directory
-
-        if (!file_exists($envFile)) {
-            die("Error: .env file not found.");
-        }
-
-        // Read the .env file contents
-        $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-        $env = [];
-
-        // Parse each line of the .env file
-        foreach ($lines as $line) {
-            if (strpos(trim($line), '#') === 0) {
-                continue;  // Skip comments
-            }
-
-            // Split each line by the first '=' to separate key and value
-            list($key, $value) = explode('=', $line, 2);
-
-            // Store key-value pairs in the $env array
-            $env[trim($key)] = trim($value);
-        }
-
-        return $env;
     }
 
 
@@ -94,6 +63,7 @@ class Database
         // Fetch the row (use fetch() instead of fetchAll() since we expect a single row)
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
+
     public function insertData($table, $data)
     {
         if (empty($data)) {

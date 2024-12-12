@@ -8,6 +8,9 @@ class HandleForm
     public function __construct($db)
     {
         $this->db = $db;
+        
+        require_once 'functions.php';
+        require_once 'database.php';
     }
 
     // Method to handle the form submission
@@ -54,19 +57,23 @@ class HandleForm
             ];
         }
     }
-}
+    // Static method to handle incoming form requests
+    public static function handleRequest()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            require_once 'Database.php';
+            $db = new Database();
+            $formHandler = new self($db); // Create an instance of HandleForm
 
-// Example usage
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require_once 'Database.php';
-    $db = new Database();
-    $formHandler = new HandleForm($db);
+            $result = $formHandler->processFormSubmission($_POST);
 
-    $result = $formHandler->processFormSubmission($_POST);
-
-    if ($result['success']) {
-        echo '<p>' . $result['message'] . '</p>';
-    } else {
-        echo '<p>Error: ' . $result['message'] . '</p>';
+            // Output the result
+            if ($result['success']) {
+                echo '<p>' . $result['message'] . '</p>';
+            } else {
+                echo '<p>Error: ' . $result['message'] . '</p>';
+            }
+        }
     }
 }
+HandleForm::handleRequest();
