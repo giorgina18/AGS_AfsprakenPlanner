@@ -63,6 +63,51 @@ class Database
         // Fetch the row (use fetch() instead of fetchAll() since we expect a single row)
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
+    public function fetchRowsByValue($table, $conditions)
+    {
+        // Ensure the table name is set
+        if (empty($table)) {
+            throw new Exception("Table not set. Use setTable() to set the table name.");
+        }
+    
+        // Ensure conditions are provided
+        if (empty($conditions) || !is_array($conditions)) {
+            throw new Exception("Conditions must be provided as a non-empty array.");
+        }
+    
+        // Fetch the connection
+        $connection = self::connection();
+    
+        // Build the WHERE clause dynamically
+        $whereClauses = [];
+        $params = [];
+        foreach ($conditions as $index => $condition) {
+            if (!isset($condition['value'], $condition['id'])) {
+                throw new Exception("Each condition must have 'value' and 'id' keys.");
+            }
+            $placeholder = ":param$index";
+            $whereClauses[] = "{$condition['value']} = $placeholder";
+            $params[$placeholder] = $condition['id'];
+        }
+        $whereClause = implode(' AND ', $whereClauses);
+    
+        // Prepare the query
+        $query = "SELECT * FROM {$table} WHERE {$whereClause}";
+        $statement = $connection->prepare($query);
+    
+        // Bind the parameters
+        foreach ($params as $placeholder => $value) {
+            $statement->bindValue($placeholder, $value, PDO::PARAM_INT);
+        }
+    
+        // Execute the query
+        $statement->execute();
+    
+        // Fetch all matching rows
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+
 
     public function insertData($table, $data)
     {

@@ -60,9 +60,34 @@ if (!empty($tijdstip_rows)):
                 foreach ($tijdstip_rows as $tijdstip_row):
                     $id = $tijdstip_row['id'];
                     $tijdstip = $tijdstip_row['tijdstip'];
+                    $current_tijdstips =  $db->fetchRowsByValue(
+                        'tijdsloten',
+                        [
+                            [
+                                'value' => 'tijdstip_id',
+                                'id' => $id
+                            ],
+                            [
+                                'value' => 'dag',
+                                'id' => $weekdag_id
+                            ]
+                        ],
+
+                    );
                 ?>
                     <div class="agenda__item">
-                        <span><a href="agenda-item.php?id=<?= $id; ?>&day=<?php echo $weekdag_id ?>"><?= $tijdstip; ?></a></span>
+                        <p><a href="agenda-item.php?id=<?= $id; ?>&day=<?php echo $weekdag_id ?>"><?= $tijdstip; ?></a></p>
+                        <?php
+                        if (!empty($current_tijdstips)):
+                            foreach ($current_tijdstips as $current_tijdstip):
+                                $extrainfo = $current_tijdstip['extrainfo'];
+                                // var_dump($current_tijdstip);
+                        ?>
+                                <p><a href="#"><?php echo $extrainfo ?></a></p>
+                        <?php
+                            endforeach;
+                        endif; ?>
+
                     </div>
                 <?php endforeach; ?>
 
