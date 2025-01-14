@@ -14,9 +14,9 @@ $user_id = 1;
     <input type="hidden" name="day" value="<?= (isset($_GET['day'])) ? $_GET['day'] : ''; ?>">
     <input type="hidden" name="tijdstip-id" value="<?= (isset($_GET['id'])) ? $_GET['id'] : ''; ?>">
     <select name="papiermaten">
-        <option value="1">A4</option>
-        <option value="2">SRA4</option>
-        <option value="3">A3</option>
+        <option value="1">A4 - $</option>
+        <option value="2">SRA4 - $$</option>
+        <option value="3">A3 - $$$</option>
         <option value="4">SRA3</option>
         <option value="5">Groot formaat printer tot 160cm breed en 30meter lang</option>
     </select>
@@ -30,7 +30,7 @@ $user_id = 1;
     <textarea name="extrainfo">
 
     </textarea>
-    <input type="submit" value="Verstuur">
+    <input type="submit" name="agenda_item" value="Verstuur">
 </form>
 <?php
 require_once 'template-parts/footer.php';

@@ -82,8 +82,9 @@ if (!empty($tijdstip_rows)):
                             foreach ($current_tijdstips as $current_tijdstip):
                                 $extrainfo = $current_tijdstip['extrainfo'];
                                 // var_dump($current_tijdstip);
+                                $current_tijdstip_id = $current_tijdstip['id'];
                         ?>
-                                <p><a href="#"><?php echo $extrainfo ?></a></p>
+                                <p><a href="edit-agenda-item.php?id=<?= $current_tijdstip_id; ?>"><?php echo $extrainfo ?></a></p>
                         <?php
                             endforeach;
                         endif; ?>

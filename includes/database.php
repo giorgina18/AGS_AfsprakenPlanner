@@ -69,15 +69,15 @@ class Database
         if (empty($table)) {
             throw new Exception("Table not set. Use setTable() to set the table name.");
         }
-    
+
         // Ensure conditions are provided
         if (empty($conditions) || !is_array($conditions)) {
             throw new Exception("Conditions must be provided as a non-empty array.");
         }
-    
+
         // Fetch the connection
         $connection = self::connection();
-    
+
         // Build the WHERE clause dynamically
         $whereClauses = [];
         $params = [];
@@ -90,24 +90,65 @@ class Database
             $params[$placeholder] = $condition['id'];
         }
         $whereClause = implode(' AND ', $whereClauses);
-    
+
         // Prepare the query
         $query = "SELECT * FROM {$table} WHERE {$whereClause}";
         $statement = $connection->prepare($query);
-    
+
         // Bind the parameters
         foreach ($params as $placeholder => $value) {
             $statement->bindValue($placeholder, $value, PDO::PARAM_INT);
         }
-    
+
         // Execute the query
         $statement->execute();
-    
+
         // Fetch all matching rows
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
-    
 
+    public function updateData($table, $data, $conditions)
+    {
+        if (empty($data)) {
+            throw new Exception('No data provided for updating.');
+        }
+    
+        if (empty($conditions)) {
+            throw new Exception('No conditions provided for updating.');
+        }
+    
+        // Generate column placeholders dynamically for SET clause
+        $setClauses = [];
+        foreach ($data as $key => $value) {
+            $setClauses[] = "`$key` = :$key";
+        }
+        $setClause = implode(', ', $setClauses);
+    
+        // Generate placeholders for WHERE clause
+        $whereClauses = [];
+        foreach ($conditions as $key => $value) {
+            $whereClauses[] = "`$key` = :cond_$key";
+        }
+        $whereClause = implode(' AND ', $whereClauses);
+    
+        // Build the final query
+        $query = "UPDATE `$table` SET $setClause WHERE $whereClause";
+        $statement = self::connection()->prepare($query);
+    
+        // Bind the data parameters
+        foreach ($data as $key => $value) {
+            $statement->bindValue(":$key", $value);
+        }
+    
+        // Bind the condition parameters
+        foreach ($conditions as $key => $value) {
+            $statement->bindValue(":cond_$key", $value);
+        }
+    
+        // Execute the query
+        $statement->execute();
+    }
+    
 
     public function insertData($table, $data)
     {
