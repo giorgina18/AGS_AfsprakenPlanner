@@ -16,7 +16,50 @@ body {
     font-size: 2rem;
     font-family: "Gowun Batang", serif;
 }
+
+.contact {
+    padding: 1rem;
+    color: black;
+    background-color: #F6F5F2;
+    box-shadow: 0px 0px 10px 5px rgba(240, 235, 227);
+    border-radius: 1rem;
+    /* position: absolute; */
+    width: 100%;
+    bottom: 0px;
+    position: fixed;
+   
+}
+
+.namen {
+    margin-left: 34rem;
+    font-family: "Open Sans", serif;
+    font-style: normal;
+    font-size: 1.5rem;
+}
+
 .agenda {
+    padding: 1rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+.agenda__item {
+    padding: 2rem;
+    font-family: "Open Sans", serif;
+    font-style: normal;
+    padding: 0.3rem;
+    box-shadow: 1px 1px 1px 1px #1E201E;
+    text-decoration: none;
+    border-radius: 0.3rem;
+}
+
+.tijdstip__tijd {
+    color: #1E201E;
+    text-decoration: none;
+    box-shadow: 0px 2px 0px 0px #2E236C;
+}
+
+.tijdstip__info {
+    color: #1E201E;
+    text-decoration: none;
 }

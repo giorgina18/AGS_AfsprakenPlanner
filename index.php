@@ -76,7 +76,7 @@ if (!empty($tijdstip_rows)):
                     );
                 ?>
                     <div class="agenda__item">
-                        <p><a href="agenda-item.php?id=<?= $id; ?>&day=<?php echo $weekdag_id ?>"><?= $tijdstip; ?></a></p>
+                        <p><a class="tijdstip__tijd" href="agenda-item.php?id=<?= $id; ?>&day=<?php echo $weekdag_id ?>"><?= $tijdstip; ?></a></p>
                         <?php
                         if (!empty($current_tijdstips)):
                             foreach ($current_tijdstips as $current_tijdstip):
@@ -84,7 +84,7 @@ if (!empty($tijdstip_rows)):
                                 // var_dump($current_tijdstip);
                                 $current_tijdstip_id = $current_tijdstip['id'];
                         ?>
-                                <p><a href="edit-agenda-item.php?id=<?= $current_tijdstip_id; ?>"><?php echo $extrainfo ?></a></p>
+                                <p><a class="tijdstip__info" href="edit-agenda-item.php?id=<?= $current_tijdstip_id; ?>"><?php echo $extrainfo ?></a></p>
                         <?php
                             endforeach;
                         endif; ?>

@@ -14,11 +14,11 @@ $user_id = 1;
     <input type="hidden" name="day" value="<?= (isset($_GET['day'])) ? $_GET['day'] : ''; ?>">
     <input type="hidden" name="tijdstip-id" value="<?= (isset($_GET['id'])) ? $_GET['id'] : ''; ?>">
     <select name="papiermaten">
-        <option value="1">A4 - $</option>
-        <option value="2">SRA4 - $$</option>
-        <option value="3">A3 - $$$</option>
-        <option value="4">SRA3</option>
-        <option value="5">Groot formaat printer tot 160cm breed en 30meter lang</option>
+        <option value="1">A4 - €0.10,-</option>
+        <option value="2">SRA4 - €0.20,- </option>
+        <option value="3">A3 - €0.40,- </option>
+        <option value="4">SRA3 - €0.50,-</option>
+        <option value="5">Groot formaat printer tot 160cm breed en 30meter lang - €2,-</option>
     </select>
 
     <select name="status">
